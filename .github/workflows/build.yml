@@ -29,6 +29,7 @@ jobs:
       
     - name: Install Ubuntu Dependencies
       run: |
+        uname -m
         sudo apt-get update
         sudo apt-get install mpich libmpich-dev libhdf5-mpich-dev libcurl4-openssl-dev 
         echo "Download and build PnetCDF version ${PNETCDF_VERSION}"
@@ -50,6 +51,7 @@ jobs:
         make -j 2
         make install
         popd
+        uname -m
 #   - name: The job has failed
 #     if: ${{ failure() }}
 #     run: |
@@ -58,15 +60,18 @@ jobs:
 
     - name: Install python dependencies via pip
       run: |
+        uname -m
         python -m pip install --upgrade pip
         pip install numpy cython cftime pytest twine wheel check-manifest mpi4py
     - name: Install netcdf4-python
       run: |
+        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python setup.py install
   
     - name: Test
       run: |
+        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python checkversion.py
         # serial
@@ -90,6 +95,7 @@ jobs:
         fi
     - name: Tarball
       run: |
+        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python setup.py --version  
         pip wheel . -w dist --no-deps 
