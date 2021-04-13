@@ -99,6 +99,11 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     env:
+      PNETCDF_VERSION: 1.12.1
+      NETCDF_VERSION: 4.7.4
+      NETCDF_DIR: ${{ github.workspace }}/..
+      NETCDF_EXTRA_CONFIG: --enable-pnetcdf
+      CC: mpicc.mpich
       py: /opt/python/${{ matrix.pyver }}/bin/python
       img: quay.io/pypa/manylinux2014_${{ matrix.arch }}
     steps:
@@ -111,6 +116,34 @@ jobs:
       run: |
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           ${{ env.img }} ${{ env.py }} -m pip install -U  pip build
+    - name: Install Ubuntu Dependencies
+      run: |
+            uname -m
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.img }} \
+            bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
+            source .env/bin/activate && \
+            sudo apt-get update && \
+            sudo apt-get install mpich libmpich-dev libhdf5-mpich-dev libcurl4-openssl-dev  && \
+            echo "Download and build PnetCDF version ${PNETCDF_VERSION}" && \
+            wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz && \
+            tar -xzf pnetcdf-${PNETCDF_VERSION}.tar.gz && \
+            pushd pnetcdf-${PNETCDF_VERSION} && \
+            ./configure --prefix $NETCDF_DIR --enable-shared --disable-fortran --disable-cxx && \
+            make -j 2 && \
+            make install && \
+            popd && \
+            echo "Download and build netCDF version ${NETCDF_VERSION}" && \
+            wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-${NETCDF_VERSION}.tar.gz && \
+            tar -xzf netcdf-c-${NETCDF_VERSION}.tar.gz && \
+            pushd netcdf-c-${NETCDF_VERSION} && \
+            export CPPFLAGS="-I/usr/include/hdf5/mpich -I${NETCDF_DIR}/include" && \
+            export LDFLAGS="-L${NETCDF_DIR}/lib" && \
+            export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
+            ./configure --prefix $NETCDF_DIR --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 $NETCDF_EXTRA_CONFIG && \
+            make -j 2 && \
+            make install && \
+            popd && \
     - name: Install dependencies
       run: |
             uname -m
@@ -118,7 +151,6 @@ jobs:
             ${{ env.img }} \
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
-            python -m pip install --upgrade pip && \
             pip install numpy cython cftime pytest twine wheel check-manifest && \
             deactivate'
     - name: Install netcdf4-python
