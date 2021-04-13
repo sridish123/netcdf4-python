@@ -2,7 +2,7 @@ name: Build and Test Linux
 on: [push, pull_request]
 jobs:
   build-linux:
-    name: Build wheels on ${{matrix.arch}} #Python (${{ matrix.python-version }})
+    name: Python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     env:
       PNETCDF_VERSION: 1.12.1
@@ -13,7 +13,7 @@ jobs:
 #     NO_NET: 1
     strategy:
       matrix:
-        arch: [x86_64, aarch64]
+        python-version: ["3.9"]
     steps:
 
     - uses: actions/checkout@v2
@@ -21,15 +21,10 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-          python-version: '3.9'
+        python-version: ${{ matrix.python-version }}
 
-    - uses: docker/setup-qemu-action@v1
-      if:  ${{matrix.arch}} == 'aarch64'
-      name: Set up QEMU
-      
     - name: Install Ubuntu Dependencies
       run: |
-        uname -m
         sudo apt-get update
         sudo apt-get install mpich libmpich-dev libhdf5-mpich-dev libcurl4-openssl-dev 
         echo "Download and build PnetCDF version ${PNETCDF_VERSION}"
@@ -51,7 +46,6 @@ jobs:
         make -j 2
         make install
         popd
-        uname -m
 #   - name: The job has failed
 #     if: ${{ failure() }}
 #     run: |
@@ -60,18 +54,14 @@ jobs:
 
     - name: Install python dependencies via pip
       run: |
-        uname -m
         python -m pip install --upgrade pip
         pip install numpy cython cftime pytest twine wheel check-manifest mpi4py
     - name: Install netcdf4-python
       run: |
-        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python setup.py install
-  
     - name: Test
       run: |
-        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python checkversion.py
         # serial
@@ -95,9 +85,94 @@ jobs:
         fi
     - name: Tarball
       run: |
-        uname -m
         export PATH=${NETCDF_DIR}/bin:${PATH} 
         python setup.py --version  
         pip wheel . -w dist --no-deps 
         check-manifest --verbose 
         twine check dist/* 
+  test-aarch64:
+    name: "Test ${{ matrix.pyver }} aarch64"
+    strategy:
+      matrix:
+        pyver: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
+        arch: [aarch64]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      py: /opt/python/${{ matrix.pyver }}/bin/python
+      img: quay.io/pypa/manylinux2014_${{ matrix.arch }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up QEMU
+      id: qemu
+      uses: docker/setup-qemu-action@v1
+    - name: Install tools
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+          ${{ env.img }} ${{ env.py }} -m pip install -U  pip build
+    - name: Install dependencies
+      run: |
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.img }} \
+            bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
+            source .env/bin/activate && \
+            python -m pip install --upgrade pip && \
+            pip install -e . && \
+            deactivate'
+    - name: Test with pytest
+      run: |
+          docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.img }} \
+            bash -exc '\
+            source .env/bin/activate && \
+            export PATH=${NETCDF_DIR}/bin:${PATH} && \
+            python checkversion.py && \
+            cd test && \
+            python run_all.py && \
+            # parallel (hdf5 for netcdf4, pnetcdf for netcdf3)
+            cd ../examples && \
+            mpirun.mpich -np 4 python mpi_example.py && \
+            if [ $? -ne 0 ] ; then && \
+              echo "hdf5 mpi test failed!" && \
+              exit 1 && \
+            else && \
+              echo "hdf5 mpi test passed!" && \
+            fi && \
+            mpirun.mpich -np 4 python mpi_example.py NETCDF3_64BIT_DATA && \
+            if [ $? -ne 0 ] ; then && \
+              echo "pnetcdf mpi test failed!" && \
+              exit 1 && \
+            else && \
+              echo "pnetcdf mpi test passed!" && \
+            fi && \
+            deactivate'
+  build-aarch64:
+    name: "Build on ${{ matrix.pyver }} aarch64"
+    strategy:
+      matrix:
+        pyver: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
+        arch: [aarch64]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      py: /opt/python/${{ matrix.pyver }}/bin/python
+      img: quay.io/pypa/manylinux2014_${{ matrix.arch }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up QEMU
+      id: qemu
+      uses: docker/setup-qemu-action@v1
+    - name: Install tools
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+          ${{ env.img }} ${{ env.py }} -m pip install -U  pip build pytest
+    - name: Make wheel
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+          ${{ env.img }} ${{ env.py }} -m build
+    - name: Repair wheel wheel
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+          ${{ env.img }} auditwheel repair dist/*.whl --wheel-dir wheelhouse/
