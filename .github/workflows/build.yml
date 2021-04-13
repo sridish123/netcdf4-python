@@ -16,11 +16,7 @@ jobs:
         image:
           - 'quay.io/pypa/manylinux2014_x86_64'
           - 'quay.io/pypa/manylinux2014_aarch64'
-        py:
-          - 'cp36-cp36m'
-          - 'cp37-cp37m'
-          - 'cp38-cp38'
-          - 'cp39-cp39'
+        python-version: ["cp36-cp36m","cp37-cp37m","cp38-cp38","cp39-cp39"]:
     steps:
 
     - uses: actions/checkout@v2
