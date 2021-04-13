@@ -125,6 +125,8 @@ jobs:
             source .env/bin/activate && \
             uname -m
             yum update && \
+            yum install –y epel-release && \
+            yum-config-manager --enable epel && \
             yum install mpich openmpi hdf5-devel curl-devel  && \
             echo "Download and build PnetCDF version ${PNETCDF_VERSION}" && \
             wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz && \
