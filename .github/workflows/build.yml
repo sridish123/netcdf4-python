@@ -94,7 +94,7 @@ jobs:
     name: "Test ${{ matrix.pyver }} aarch64"
     strategy:
       matrix:
-        pyver: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
+        pyver: [cp38-cp38, cp39-cp39]
         arch: [aarch64]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -126,6 +126,7 @@ jobs:
             uname -m
             yum install -y sudo && \
             sudo yum update && \
+            sudo yum install -y environment-modules && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
