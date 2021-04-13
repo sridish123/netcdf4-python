@@ -131,7 +131,7 @@ jobs:
             sudo yum -y install mpich openmpi hdf5-devel curl-devel wget && \
             echo "Download and build PnetCDF version 1.12.1" && \
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
-            tar -xzf pnetcdf-${PNETCDF_VERSION}.tar.gz && \
+            tar -xzf pnetcdf-1.12.1.tar.gz && \
             pushd pnetcdf-1.12.1 && \
             ./configure --prefix $NETCDF_DIR --enable-shared --disable-fortran --disable-cxx && \
             make -j 2 && \
@@ -139,7 +139,7 @@ jobs:
             popd && \
             echo "Download and build netCDF version 4.7.4" && \
             wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
-            tar -xzf netcdf-c-${NETCDF_VERSION}.tar.gz && \
+            tar -xzf netcdf-c-4.7.4.tar.gz && \
             pushd netcdf-c-4.7.4 && \
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
