@@ -133,7 +133,7 @@ jobs:
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
             tar -xzf pnetcdf-1.12.1.tar.gz && \
             pushd pnetcdf-1.12.1 && \
-            ./configure --prefix ${{ github.workspace }}/.. --enable-shared --disable-fortran --disable-cxx && \
+            ./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
             make -j 2 && \
             make install && \
             popd && \
@@ -144,7 +144,7 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            ./configure --prefix $NETCDF_DIR --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
+            ./configure --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
             make -j 2 && \
             make install && \
             popd && \
@@ -165,7 +165,8 @@ jobs:
             ${{ env.img }} \
             bash -exc '\
             source .env/bin/activate && \
-            export PATH=${NETCDF_DIR}/bin:${PATH} && \ 
+            uname -m && \
+            export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
     - name: Test with pytest
@@ -175,6 +176,7 @@ jobs:
             ${{ env.img }} \
             bash -exc '\
             source .env/bin/activate && \
+            uname -m && \
             export PATH=${NETCDF_DIR}/bin:${PATH} && \
             python checkversion.py && \
             cd test && \
