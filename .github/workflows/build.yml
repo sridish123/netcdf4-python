@@ -126,8 +126,8 @@ jobs:
             uname -m
             yum install -y sudo && \
             sudo yum update && \
-            #sudo yum install -y epel-release && \
-            #sudo yum-config-manager --enable epel && \
+            sudo yum install -y epel-release && \
+            sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
             module load mpi && \
             mpifort --version && \
