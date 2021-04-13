@@ -126,10 +126,10 @@ jobs:
             uname -m
             yum install -y sudo && \
             sudo yum update && \
-            sudo yum install -y environment-modules && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
+            source /etc/profile.d/modules.sh && \
             module load mpi && \
             mpifort --version && \
             echo "Download and build PnetCDF version 1.12.1" && \
