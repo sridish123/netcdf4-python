@@ -94,7 +94,7 @@ jobs:
     name: "Test ${{ matrix.pyver }} aarch64"
     strategy:
       matrix:
-        pyver: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
+        pyver: [cp38-cp38]
         arch: [aarch64]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -113,6 +113,7 @@ jobs:
           ${{ env.img }} ${{ env.py }} -m pip install -U  pip build
     - name: Install dependencies
       run: |
+            uname -m
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
@@ -122,7 +123,8 @@ jobs:
             deactivate'
     - name: Install netcdf4-python
       run: |
-          docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            uname -m
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
             bash -exc '\
             source .env/bin/activate && \
@@ -131,7 +133,8 @@ jobs:
             deactivate'
     - name: Test with pytest
       run: |
-          docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            uname -m
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
             bash -exc '\
             source .env/bin/activate && \
