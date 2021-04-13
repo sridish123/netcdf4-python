@@ -13,10 +13,22 @@ jobs:
 #     NO_NET: 1
     strategy:
       matrix:
-        python-version: ["3.9"]
+        image:
+          - 'quay.io/pypa/manylinux2014_x86_64'
+          - 'quay.io/pypa/manylinux2014_aarch64'
+        py:
+          - 'cp36-cp36m'
+          - 'cp37-cp37m'
+          - 'cp38-cp38'
+          - 'cp39-cp39'
     steps:
 
     - uses: actions/checkout@v2
+   
+    - uses: docker/setup-qemu-action@v1
+      if: ${{ matrix.image == 'quay.io/pypa/manylinux2014_aarch64' }}
+      name: Set up QEMU
+
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
