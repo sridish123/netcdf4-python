@@ -145,6 +145,7 @@ jobs:
             make -j 2 && \
             make install && \
             popd && \
+            deactivate'
     - name: Install dependencies
       run: |
             uname -m
