@@ -148,8 +148,8 @@ jobs:
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             #./configure CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
-            make -j 2 && \
-            make install && \
+            #make -j 2 && \
+            #make install && \
             popd && \
             deactivate'
     - name: Install dependencies
