@@ -169,7 +169,7 @@ jobs:
             bash -exc '\
             source .env/bin/activate && \
             uname -m && \
-            export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
     - name: Test with pytest
