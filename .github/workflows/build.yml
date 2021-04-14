@@ -94,7 +94,7 @@ jobs:
     name: "Test ${{ matrix.pyver }} aarch64"
     strategy:
       matrix:
-        pyver: [cp38-cp38, cp39-cp39]
+        pyver: [cp38-cp38]
         arch: [aarch64]
       fail-fast: false
     runs-on: ubuntu-latest
@@ -147,7 +147,7 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            ./configure CC="/usr/bin/arm-linux-gnueabihf-gcc-4.7" --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
+            ./configure CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
             make -j 2 && \
             make install && \
             popd && \
