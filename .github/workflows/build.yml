@@ -123,7 +123,11 @@ jobs:
             ${{ env.img }} \
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
-            yum install hdf5-devel && \
+            yum install -y sudo && \
+            sudo yum update && \
+            sudo yum install -y epel-release && \
+            sudo yum-config-manager --enable epel && \
+            sudo yum install hdf5-devel && \
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             python setup.py --version && \  
             pip wheel . -w dist --no-deps && \ 
