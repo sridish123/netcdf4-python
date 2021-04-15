@@ -169,7 +169,12 @@ jobs:
             bash -exc '\
             source .env/bin/activate && \
             uname -m && \
-            #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            yum install -y sudo && \
+            sudo yum update && \
+            sudo yum install -y epel-release && \
+            sudo yum-config-manager --enable epel && \
+            sudo yum -y hdf5-devel && \
+            export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
     - name: Test with pytest
