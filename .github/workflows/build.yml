@@ -173,7 +173,7 @@ jobs:
             sudo yum update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum -y hdf5-devel && \
+            sudo yum install -y hdf5-devel && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
