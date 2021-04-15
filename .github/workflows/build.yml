@@ -127,7 +127,7 @@ jobs:
             sudo yum update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum install hdf5-devel && \
+            sudo yum install hdf5-devel -y && \
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             python setup.py --version && \  
             pip wheel . -w dist --no-deps && \ 
