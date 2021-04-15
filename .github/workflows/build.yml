@@ -174,7 +174,7 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum install -y hdf5-devel && \
-            export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
     - name: Test with pytest
