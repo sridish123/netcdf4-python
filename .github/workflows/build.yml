@@ -153,8 +153,6 @@ jobs:
             #make install && \
             #popd && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
-            sudo yum install -y numpy && \ 
-            python setup.py install && \
             deactivate'
     - name: Install dependencies
       run: |
@@ -177,7 +175,7 @@ jobs:
             sudo yum update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum install -y hdf5-devel && \
+            sudo yum install -y hdf5-devel netcdf-devel && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
