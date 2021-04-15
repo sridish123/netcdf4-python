@@ -151,7 +151,7 @@ jobs:
             #make -j 2 && \
             #make install && \
             popd && \
-            export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python setup.py install && \
             deactivate'
     - name: Install dependencies
