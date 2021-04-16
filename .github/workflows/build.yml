@@ -170,6 +170,7 @@ jobs:
               echo "pnetcdf mpi test passed!" 
             fi && \
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
+            pip install twine && \
             python setup.py --version && \  
             pip wheel . -w dist --no-deps && \ 
             check-manifest --verbose && \ 
