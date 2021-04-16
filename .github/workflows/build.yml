@@ -187,6 +187,11 @@ jobs:
             bash -exc '\
             source .env/bin/activate && \
             uname -m && \
+            yum install -y sudo && \
+            sudo yum update && \
+            sudo yum install -y epel-release && \
+            sudo yum-config-manager --enable epel && \
+            sudo yum install -y hdf5-devel netcdf-devel numpy && \
             export PATH=${NETCDF_DIR}/bin:${PATH} && \
             python checkversion.py && \
             cd test && \
