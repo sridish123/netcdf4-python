@@ -192,7 +192,7 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum install -y hdf5-devel netcdf-devel && \
-            export PATH=${NETCDF_DIR}/bin:${PATH} && \
+            export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
             python run_all.py && \
