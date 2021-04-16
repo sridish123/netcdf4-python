@@ -194,18 +194,18 @@ jobs:
             # parallel (hdf5 for netcdf4, pnetcdf for netcdf3)
             cd ../examples && \
             mpirun.mpich -np 4 python mpi_example.py && \
-            if [ $? -ne 0 ] ; then && \
-              echo "hdf5 mpi test failed!" && \
-              exit 1 && \
-            else && \
-              echo "hdf5 mpi test passed!" && \
+            if [ $? -ne 0 ] ; then 
+              echo "hdf5 mpi test failed!"
+              exit 1
+            else
+              echo "hdf5 mpi test passed!"
             fi && \
             mpirun.mpich -np 4 python mpi_example.py NETCDF3_64BIT_DATA && \
-            if [ $? -ne 0 ] ; then && \
-              echo "pnetcdf mpi test failed!" && \
-              exit 1 && \
-            else && \
-              echo "pnetcdf mpi test passed!" && \
+            if [ $? -ne 0 ] ; then 
+              echo "pnetcdf mpi test failed!"
+              exit 1
+            else 
+              echo "pnetcdf mpi test passed!" 
             fi && \
             deactivate'
     - name: Tarball
