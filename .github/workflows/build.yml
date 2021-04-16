@@ -124,7 +124,7 @@ jobs:
             sudo yum update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget numpy && \
+            sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
             sudo yum -y install netcdf-devel && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
@@ -149,6 +149,8 @@ jobs:
             #make install && \
             popd && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            python -m pip install --upgrade pip && \
+            pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
@@ -170,8 +172,6 @@ jobs:
             else 
               echo "pnetcdf mpi test passed!" 
             fi && \
-            python -m pip install --upgrade pip && \
-            pip install twine && \
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             python setup.py --version && \  
             pip wheel . -w dist --no-deps && \ 
