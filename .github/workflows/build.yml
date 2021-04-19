@@ -145,16 +145,16 @@ jobs:
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             gcc -v && \
-            cd /usr/bin && \
-            sudo ln -s gcc gcc-9.3.1 && \
+            python -m pip install --upgrade pip && \
+            sudo pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
+            export CC=clang && \
+            pip install --no-clean pycrypto && \
             ./configure --prefix ${{ github.workspace }}/.. && \
             #CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-shared && \
             make -j 2 && \
             make install && \
             popd && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
-            python -m pip install --upgrade pip && \
-            sudo pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
