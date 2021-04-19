@@ -144,9 +144,10 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            #./configure CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-shared && \
-            #make -j 2 && \
-            #make install && \
+            ./configure && \
+            #CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-shared && \
+            make -j 2 && \
+            make install && \
             popd && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python -m pip install --upgrade pip && \
