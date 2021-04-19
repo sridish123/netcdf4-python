@@ -147,10 +147,6 @@ jobs:
             gcc -v && \
             python -m pip install --upgrade pip && \
             sudo pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
-            #export CC=clang && \
-            #pip install --no-clean pycrypto && \
-            export ARM_ARCH="arm64" && \
-            export CFLAGS="-arch ${ARM_ARCH}" && \
             ./configure --prefix ${{ github.workspace }}/.. && \
             #CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-shared && \
             make -j 2 && \
