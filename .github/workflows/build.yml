@@ -125,7 +125,7 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
-            sudo yum -y install netcdf-devel && \
+            #sudo yum -y install netcdf-devel && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
             #mpifort --version && \
@@ -150,7 +150,7 @@ jobs:
             popd && \
             #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
             python -m pip install --upgrade pip && \
-            pip install numpy cython cftime pytest twine wheel check-manifest mpi4py mpich && \
+            pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
