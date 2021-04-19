@@ -145,6 +145,8 @@ jobs:
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             gcc -v && \
+            cd /usr/bin && \
+            sudo ln -s gcc gcc-9.3.1 && \
             ./configure --prefix ${{ github.workspace }}/.. && \
             #CC="/usr/bin/arm-linux-gnueabihf-gcc-8" --prefix ${{ github.workspace }}/.. --enable-shared && \
             make -j 2 && \
