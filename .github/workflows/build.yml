@@ -153,8 +153,7 @@ jobs:
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             gcc -v && \
-            ./configure CC=mpicc.mpich --enable-shared && \
-            #--prefix ${{ github.workspace }}/..  && \
+            ./configure --prefix ${{ github.workspace }}/.. --enable-shared CC=mpicc.mpich && \            
             make -j 2 && \
             make install && \
             popd && \
