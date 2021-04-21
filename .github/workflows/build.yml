@@ -137,14 +137,14 @@ jobs:
             make -j 2 && \
             make install && \
             popd && \
-            mkdir /tmp/mpich-3 && \
-            cd /tmp/mpich-3 && \
-            wget http://www.mpich.org/static/downloads/3.4.1/mpich-3.4.1.tar.gz && \
-            tar -xvf  mpich-3.4.1.tar.gz && \
-            mkdir /root/mpich-install && \
-            cd mpich-3.4.1 && \
-            ./configure -prefix=/root/mpich-install --with-device=ch3 |& tee c.txt && \
-            make 2>&1 | tee m.txt && \
+            #mkdir /tmp/mpich-3 && \
+            #cd /tmp/mpich-3 && \
+            #wget http://www.mpich.org/static/downloads/3.4.1/mpich-3.4.1.tar.gz && \
+            #tar -xvf  mpich-3.4.1.tar.gz && \
+            #mkdir /root/mpich-install && \
+            #cd mpich-3.4.1 && \
+            #./configure -prefix=/root/mpich-install --with-device=ch3 |& tee c.txt && \
+            #make 2>&1 | tee m.txt && \
             echo "Download and build netCDF version 4.7.4" && \
             wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
             tar -xzf netcdf-c-4.7.4.tar.gz && \
@@ -152,8 +152,8 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            gcc -v && \
-            ./configure --prefix ${{ github.workspace }}/.. --enable-shared CC=mpicc.mpich && \            
+            ./configure --prefix ${{ github.workspace }}/.. --enable-shared && \            
+            #CC=mpicc.mpich
             make -j 2 && \
             make install && \
             popd && \
