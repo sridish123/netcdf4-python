@@ -122,8 +122,8 @@ jobs:
             uname -m
             yum install -y sudo && \
             sudo yum update && \
-            sudo yum install gcc gcc-c++ make -y && \
-            sudo yum -y groupinstall "Development Tools" && \
+            #sudo yum install gcc gcc-c++ make -y && \
+            #sudo yum -y groupinstall "Development Tools" && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
@@ -154,7 +154,7 @@ jobs:
             #export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             #export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             #export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            ./configure --prefix ${{ github.workspace }}/.. --enable-shared && \            
+            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --enable-shared
             #CC=mpicc.mpich
             make -j 2 && \
             make install && \
