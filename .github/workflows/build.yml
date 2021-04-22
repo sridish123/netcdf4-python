@@ -144,7 +144,8 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lnetcdf -lhdf5_hl -lhdf5 -lz -lcurl" && \
-            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-shared CC=mpicc.mpich && \
+            mpicc 
+            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-shared CC="/usr/lib64/mpich" && \
             make -j 2 && \
             make install && \
             popd && \
