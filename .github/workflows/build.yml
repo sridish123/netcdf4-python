@@ -141,10 +141,10 @@ jobs:
             wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
             tar -xzf netcdf-c-4.7.4.tar.gz && \
             pushd netcdf-c-4.7.4 && \
-            #export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
+            export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
-            export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --enable-shared
+            export LIBS="-lnetcdf -lhdf5_hl -lhdf5 -lz -lcurl" && \
+            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-shared && \
             #CC=mpicc.mpich
             make -j 2 && \
             make install && \
