@@ -153,7 +153,7 @@ jobs:
             pushd netcdf-c-4.7.4 && \
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
-            export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
+            #export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --enable-shared
             #CC=mpicc.mpich
             make -j 2 && \
