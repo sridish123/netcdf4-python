@@ -128,6 +128,7 @@ jobs:
             #sudo yum -y install netcdf-devel && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
+            module load hdf5-gcc && \
             #mpifort --version && \
             echo "Download and build PnetCDF version 1.12.1" && \
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
@@ -151,7 +152,7 @@ jobs:
             popd && \
             python -m pip install --upgrade pip && \
             pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
-            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} 
+            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
