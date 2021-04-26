@@ -149,9 +149,10 @@ jobs:
             make -j 2 && \
             make install && \
             popd && \
+            whereis netcdf && \             
             python -m pip install --upgrade pip && \
             sudo pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
-            #export PATH=${{ github.workspace }}/../bin:${PATH} && \ 
+            #export PATH=${{ github.workspace }}/../bin:${PATH} 
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
