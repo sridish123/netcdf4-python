@@ -144,7 +144,6 @@ jobs:
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             #export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            pnetcdf --version && \
             ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-netcdf-4 --disable-dap --enable-shared --enable-parallel4  && \
             #--enable-pnetcdf
             make -j 2 && \
