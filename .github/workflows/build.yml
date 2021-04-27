@@ -126,9 +126,9 @@ jobs:
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5 hdf5-devel curl-devel wget && \
             #sudo yum -y install netcdf-devel && \
-            source /etc/profile.d/modules.sh && \
+            #source /etc/profile.d/modules.sh && \
             module load mpi && \
-            module load hdf5/1.10.5-gcc4.8.5 && \
+            #module load hdf5/1.10.5-gcc4.8.5 && \
             echo "Download and build PnetCDF version 1.12.1" && \
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
             tar -xzf pnetcdf-1.12.1.tar.gz && \
