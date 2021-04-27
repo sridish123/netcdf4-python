@@ -128,7 +128,7 @@ jobs:
             sudo yum -y install netcdf-devel && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
-            #module load hdf5-gcc && \
+            module load hdf5/1.10.5-gcc4.8.5 && \
             echo "Download and build PnetCDF version 1.12.1" && \
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
             tar -xzf pnetcdf-1.12.1.tar.gz && \
@@ -154,12 +154,12 @@ jobs:
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
-            #python checkversion.py && \
+            python checkversion.py && \
             cd test && \
             python run_all.py && \
             # parallel (hdf5 for netcdf4, pnetcdf for netcdf3)
             cd ../examples && \
-            #mpirun.mpich -np 4 python mpi_example.py && \
+            mpirun.mpich -np 4 python mpi_example.py && \
             if [ $? -ne 0 ] ; then 
               echo "hdf5 mpi test failed!"
               exit 1
