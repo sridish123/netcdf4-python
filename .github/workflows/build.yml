@@ -125,7 +125,7 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5 hdf5-devel curl-devel wget && \
-            #sudo yum -y install netcdf-devel && \
+            sudo yum -y install netcd netcdf-devel && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
             #module load hdf5/1.10.5-gcc4.8.5 && \
@@ -138,18 +138,19 @@ jobs:
             make install && \
             popd && \
             echo "Download and build netCDF version 4.7.4" && \
-            wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
-            tar -xzf netcdf-c-4.7.4.tar.gz && \
-            pushd netcdf-c-4.7.4 && \
-            export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
-            export LDFLAGS="-L${{ github.workspace }}/../lib" && \
+            #wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
+            #tar -xzf netcdf-c-4.7.4.tar.gz && \
+            #pushd netcdf-c-4.7.4 && \
+            #export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
+            #export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             #export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            ./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-netcdf-4 --disable-dap --enable-shared --enable-parallel4  && \
+            #./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-netcdf-4 --disable-dap --enable-shared --enable-parallel4  && \
             #--enable-pnetcdf
-            make -j 2 && \
-            make install && \
-            popd && \
+            #make -j 2 && \
+            #make install && \
+            #popd && \
             python -m pip install --upgrade pip && \
+            pip install netCDF4 && \
             pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
