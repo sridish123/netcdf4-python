@@ -138,9 +138,9 @@ jobs:
             make install && \
             popd && \
             echo "Download and build netCDF version 4.7.4" && \
-            wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-1.5.3.tar.gz && \
-            tar -xzf netcdf-c-1.5.3.tar.gz && \
-            pushd netcdf-c-1.5.3 && \
+            wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
+            tar -xzf netcdf-c-4.7.4.tar.gz && \
+            pushd netcdf-c-4.7.4 && \
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
