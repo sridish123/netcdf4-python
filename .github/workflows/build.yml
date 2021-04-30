@@ -121,7 +121,7 @@ jobs:
             source .env/bin/activate && \
             uname -m
             yum install -y sudo && \
-            sudo yum update && \
+            sudo yum -y update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install mpich openmpi-devel hdf5 hdf5-devel curl-devel wget && \
