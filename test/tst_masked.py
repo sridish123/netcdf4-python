@@ -138,7 +138,7 @@ class PrimitiveTypesTestCase(unittest.TestCase):
         var1 = dataset.variables["var1"]
         var2 = dataset.variables["var2"]
         assert var1[:].mask.all()
-        assert var2[:].mask.any() == True
+        assert var2[:].mask.any() == False
         dataset.close()
 
 if __name__ == '__main__':
