@@ -137,8 +137,8 @@ class PrimitiveTypesTestCase(unittest.TestCase):
         dataset = netCDF4.Dataset(self.file2, "r")
         var1 = dataset.variables["var1"]
         var2 = dataset.variables["var2"]
-        print ("var1")
-        print ("var2")
+        print (var1)
+        print (var2)
         assert var1[:].mask.all()
         assert var2[:].mask.any() == False
         dataset.close()
