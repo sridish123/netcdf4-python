@@ -149,15 +149,15 @@ jobs:
             #make -j 2 && \
             #make install && \
             #popd && \
-            python -m pip install --upgrade pip && \
-            pip install netCDF4 && \
-            pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
+            python3.8 -m pip install --upgrade pip && \
+            python3.8 -m pip install netCDF4 && \
+            python3.8 -m pip install numpy cython cftime pytest twine wheel check-manifest mpi4py && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
-            python checkversion.py && \
+            python3.8 checkversion.py && \
             cd test && \
-            python run_all.py && \
+            python3.8 run_all.py && \
             # parallel (hdf5 for netcdf4, pnetcdf for netcdf3)
             cd ../examples && \
             mpirun.mpich -np 4 python mpi_example.py && \
@@ -175,8 +175,8 @@ jobs:
               echo "pnetcdf mpi test passed!" 
             fi && \
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
-            python setup.py --version && \  
-            pip --use-feature=in-tree-build wheel . -w dist --no-deps && \ 
+            python3.8 setup.py --version && \  
+            python3.8 -m pip --use-feature=in-tree-build wheel . -w dist --no-deps && \ 
             check-manifest --verbose && \ 
             twine check dist/* && \
             deactivate'
