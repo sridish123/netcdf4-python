@@ -160,7 +160,7 @@ jobs:
             pip wheel . -w dist --no-deps && \ 
             #check-manifest --verbose && \ 
             #twine check dist/* && \
-            export PATH=${{ github.workspace }}/../bin:${PATH} && \
+            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
             python run_all.py && \
