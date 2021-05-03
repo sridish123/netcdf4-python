@@ -155,6 +155,11 @@ jobs:
             #mpi4py
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
+            export PATH=${{ github.workspace }}/../bin:${PATH}  && \
+            #python setup.py --version && \  
+            python -m pip --use-feature=in-tree-build wheel . -w dist --no-deps && \ 
+            check-manifest --verbose && \ 
+            twine check dist/* && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
@@ -175,9 +180,4 @@ jobs:
             #else 
              # echo "pnetcdf mpi test passed!" 
             #fi && \
-            export PATH=${{ github.workspace }}/../bin:${PATH}  && \
-            #python setup.py --version && \  
-            python -m pip --use-feature=in-tree-build wheel . -w dist --no-deps && \ 
-            check-manifest --verbose && \ 
-            twine check dist/* && \
             deactivate'
