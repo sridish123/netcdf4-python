@@ -158,8 +158,8 @@ jobs:
             export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             #python setup.py --version && \  
             python -m pip --use-feature=in-tree-build wheel . -w dist --no-deps && \ 
-            check-manifest --verbose && \ 
-            twine check dist/* && \
+            #check-manifest --verbose && \ 
+            #twine check dist/* && \
             export PATH=${{ github.workspace }}/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
