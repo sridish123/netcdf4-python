@@ -156,7 +156,7 @@ jobs:
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
             #export PATH=${{ github.workspace }}/../bin:${PATH}  && \
-            python setup.py --version && \  
+            #python setup.py --version && \  
             pip wheel . -w dist --no-deps && \ 
             #check-manifest --verbose && \ 
             #twine check dist/* && \
