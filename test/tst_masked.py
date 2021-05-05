@@ -144,7 +144,7 @@ class PrimitiveTypesTestCase(unittest.TestCase):
         print (var2)
         print ("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")            
         assert var1[:].mask.all()
-        assert var2[:].mask.any() == False
+        assert var2[:].mask.any() == True
         dataset.close()
 
 if __name__ == '__main__':
