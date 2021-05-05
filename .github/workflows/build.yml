@@ -185,6 +185,11 @@ jobs:
             ${{ env.img }} \
             bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
+            yum install -y sudo && \
+            sudo yum -y update && \
+            sudo yum install -y epel-release && \
+            sudo yum-config-manager --enable epel && \
+            sudo yum -y install hdf5 && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
             check-manifest --verbose && \ 
