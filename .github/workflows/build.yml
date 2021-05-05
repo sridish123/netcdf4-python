@@ -178,7 +178,7 @@ jobs:
              # echo "pnetcdf mpi test passed!" 
             #fi && \
             deactivate'
-    - name: Install Ubuntu Dependencies
+    - name: Build and Test Wheel
       run: |
             uname -m
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
