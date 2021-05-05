@@ -157,10 +157,6 @@ jobs:
             python setup.py install && \
             #export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             #python setup.py --version && \  
-            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
-            pip wheel . -w dist --no-deps && \
-            check-manifest --verbose && \ 
-            #twine check dist/* && \
             #export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
@@ -182,3 +178,16 @@ jobs:
              # echo "pnetcdf mpi test passed!" 
             #fi && \
             deactivate'
+    - name: Install Ubuntu Dependencies
+      run: |
+            uname -m
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.img }} \
+            bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
+            source .env/bin/activate && \
+            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
+            pip wheel . -w dist --no-deps && \
+            check-manifest --verbose && \ 
+            #twine check dist/* && \
+            deactivate'            
+    
