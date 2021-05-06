@@ -190,11 +190,10 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install hdf5 hdf5-devel netcdf netcdf-devel && \
-            pip install twine && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
             check-manifest --verbose && \ 
-            whereis twine && \
+            pip install twine && \
             twine check dist/* && \
             deactivate'            
     
