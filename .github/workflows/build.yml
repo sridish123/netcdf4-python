@@ -194,7 +194,7 @@ jobs:
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
             check-manifest --verbose && \ 
-            export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
+            whereis twine && \
             twine check dist/* && \
             deactivate'            
     
