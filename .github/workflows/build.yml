@@ -192,8 +192,8 @@ jobs:
             sudo yum -y install hdf5 hdf5-devel netcdf netcdf-devel && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
-            check-manifest --verbose && \ 
+            check-manifest --verbose && \
             pip install twine && \
             twine check dist/* && \
-            deactivate'            
-    
+            deactivate'
+  
