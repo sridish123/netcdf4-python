@@ -153,6 +153,7 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install hdf5 hdf5-devel netcdf-devel && \
+            pip install check-manifest twine && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
             check-manifest --verbose && \
