@@ -125,59 +125,21 @@ jobs:
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
             sudo yum -y install hdf5 hdf5-devel curl-devel wget && \
-            #mpich openmpi-devel
             sudo yum -y install netcdf-devel && \
             #source /etc/profile.d/modules.sh && \
             #module load mpi && \
             #module load hdf5/1.10.5-gcc4.8.5 && \
-            #echo "Download and build PnetCDF version 1.12.1" && \
-            #wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
-            #tar -xzf pnetcdf-1.12.1.tar.gz && \
-            #pushd pnetcdf-1.12.1 && \
-            #./configure --prefix ${{ github.workspace }}/.. --enable-shared --disable-fortran --disable-cxx && \
-            #make -j 2 && \
-            #make install && \
-            #popd && \
-            #echo "Download and build netCDF version 4.7.4" && \
-            #wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-c-4.7.4.tar.gz && \
-            #tar -xzf netcdf-c-4.7.4.tar.gz && \
-            #pushd netcdf-c-4.7.4 && \
-            #export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
-            #export LDFLAGS="-L${{ github.workspace }}/../lib" && \
-            #export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
-            #./configure --prefix /home/runner/work/netcdf4-python/netcdf4-python/.. --disable-netcdf-4 --disable-dap --enable-shared --enable-parallel4  && \
-            #--enable-pnetcdf
-            #make -j 2 && \
-            #make install && \
-            #popd && \
             pip install --upgrade pip && \
             pip install netCDF4 && \
-            pip install numpy cython cftime pytest twine wheel check-manifest && \
+            pip install numpy cython cftime pytest wheel && \
             #mpi4py
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python setup.py install && \
-            #export PATH=${{ github.workspace }}/../bin:${PATH}  && \
             #python setup.py --version && \  
             #export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             python checkversion.py && \
             cd test && \
             python run_all.py && \
-            # parallel (hdf5 for netcdf4, pnetcdf for netcdf3)
-            #cd ../examples && \
-            #mpirun.mpich -np 4 python mpi_example.py && \
-            #if [ $? -ne 0 ] ; then 
-            #  echo "hdf5 mpi test failed!"
-            #  exit 1
-            #else
-            #  echo "hdf5 mpi test passed!"
-            #fi && \
-            #mpirun.mpich -np 4 python mpi_example.py NETCDF3_64BIT_DATA && \
-            #if [ $? -ne 0 ] ; then 
-            #  echo "pnetcdf mpi test failed!"
-             # exit 1
-            #else 
-             # echo "pnetcdf mpi test passed!" 
-            #fi && \
             deactivate'
     - name: Build and Test Wheel
       run: |
