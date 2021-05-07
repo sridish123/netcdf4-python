@@ -124,8 +124,9 @@ jobs:
             sudo yum -y update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum -y install mpich openmpi-devel hdf5 hdf5-devel curl-devel wget && \
-            sudo yum -y install netcdf netcdf-devel && \
+            sudo yum -y install hdf5 hdf5-devel curl-devel wget && \
+            #mpich openmpi-devel
+            sudo yum -y install netcdf-devel && \
             #source /etc/profile.d/modules.sh && \
             #module load mpi && \
             #module load hdf5/1.10.5-gcc4.8.5 && \
@@ -189,7 +190,7 @@ jobs:
             sudo yum -y update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum -y install hdf5 hdf5-devel netcdf netcdf-devel && \
+            sudo yum -y install hdf5 hdf5-devel netcdf-devel && \
             export PATH=/home/runner/work/netcdf4-python/netcdf4-python/../bin:${PATH} && \
             pip wheel . -w dist --no-deps && \
             check-manifest --verbose && \
