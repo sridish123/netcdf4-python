@@ -123,7 +123,7 @@ jobs:
             sudo yum update && \
             sudo yum install -y epel-release && \
             sudo yum-config-manager --enable epel && \
-            sudo yum -y install mpich openmpi-devel hdf5-devel curl-devel wget && \
+            sudo yum -y install mpich mpich-devel openmpi-devel hdf5-devel curl-devel wget && \
             source /etc/profile.d/modules.sh && \
             module load mpi && \
             echo "Download and build PnetCDF version 1.12.1" && \
