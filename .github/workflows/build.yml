@@ -143,6 +143,7 @@ jobs:
             pushd netcdf-c-4.7.4 && \
             export CPPFLAGS="-I/usr/include/hdf5/mpich -I${{ github.workspace }}/../include" && \
             export LDFLAGS="-L${{ github.workspace }}/../lib" && \
+            export PATH=/usr/lib64/mpich:${PATH} && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             ./configure --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
             make -j 2 && \
