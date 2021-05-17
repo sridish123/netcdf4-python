@@ -131,8 +131,8 @@ jobs:
             wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz && \
             tar -xzf pnetcdf-1.12.1.tar.gz && \
             pushd pnetcdf-1.12.1 && \
-            find / -name mpic && \
-            export PATH=/usr/local/bin:$PATH && \
+            find /var -name mpic && \
+            export PATH=/var/cache/yum/aarch64/7/epel/packages/:$PATH && \
             #./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
             ./configure --prefix ${{ github.workspace }}/.. --enable-shared --disable-fortran --disable-cxx && \
             make -j 2 && \
