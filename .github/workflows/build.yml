@@ -150,6 +150,7 @@ jobs:
             export PATH=/usr/lib64/mpich:${PATH} && \
             export LIBS="-lhdf5_mpich_hl -lhdf5_mpich -lm -lz" && \
             export PATH=/usr/lib64/mpich/bin:$PATH && \
+            gcc --version && \
             #./configure --prefix ${{ github.workspace }}/.. CC=mpicc.mpich --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
             ./configure --prefix ${{ github.workspace }}/.. --enable-netcdf-4 --enable-shared --enable-dap --enable-parallel4 --enable-pnetcdf && \
             make -j 2 && \
