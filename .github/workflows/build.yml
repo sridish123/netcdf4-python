@@ -135,7 +135,7 @@ jobs:
             find /var -name mpic && \
             export PATH=/var/cache/yum/aarch64/7/epel/packages/:$PATH && \
             #./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
-            ./configure --prefix ${{ github.workspace }}/.. --enable-shared --disable-fortran --disable-cxx && \
+            ./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
             make -j 2 && \
             make install && \
             popd && \
