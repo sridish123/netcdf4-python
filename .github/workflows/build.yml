@@ -133,7 +133,7 @@ jobs:
             pushd pnetcdf-1.12.1 && \
             sudo yum -y install mpich mpich-devel openmpi-devel hdf5-mpich-devel && \
             find /var -name mpic && \
-            export PATH=/var/cache/yum/aarch64/7/epel/packages/:$PATH && \
+            export PATH=/usr/lib64/mpich/bin:$PATH && \
             #./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
             ./configure --prefix ${{ github.workspace }}/.. --enable-shared --with-mpi --disable-fortran --disable-cxx && \
             make -j 2 && \
